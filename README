@@ -1,0 +1,168 @@
+# Project Description
+This project is going to be an exercise in developing a computer model from non-technical verbal descriptions.
+There are going to be three parts to the project:
+
+    1. First, model the problem using a class diagram. Here you should define the classes you need to solve
+       the problem, including the relevant class attributes (instance variables) and methods. Effective use
+       of object oriented principles will 
+
+    2. Second, describe your model. Explain the role of each class and how your classes work together to solve
+       the problem at hand. This component of the project will be quite important as it will be where you
+       demonstrate an understanding of the task and your model.
+
+    3. Third, using your model you should implement the project. Your code should match your class diagrams in
+       terms of what fields and methods each class has.
+
+The actual problem will be described in the section entitled "Problem Statement."
+
+Creating class diagrams requries the use of some software. There are many softwares out there to do it but
+I recommend you use this tool (I used it for the diagrams in class): https://online.visual-paradigm.com/diagrams/solutions/free-class-diagram-tool/
+You can take screenshots of the final diagram and submit that.
+
+Alternatively, there are some tools that allow you to generate class diagrams from a python project. I am not
+too familiar with these but they are worth a try if the software above is unappealing to you.
+
+# Handing in the Assignment
+The first component of the project should be handed in as an image file, either a PNG or JPEG image. You can
+just take a few screenshots of your class diagram(s).
+
+The second component should just be a text file. No need to typeset it, I just need a few paragraphs of text
+preferrably with < 120 characters on each line. Please name this file DESCRIPTION.
+
+Third is your code. However you format your code is fine with me as long as it can run. Along with your code
+I would like you to create a short file explaining how to run your code called INSTRUCTIONS.
+It should be pretty simple, something like "to run the code please execute 'python main.py'"
+
+Put all of these components in a folder named "<last_name>_<first_initial>_p1". Zip this folder up, give it 
+the same name, and submit it on mycourses (e.g. my name is Joshua Karns so my folder would be named Karns_J_p1
+and my zip file would be named Karns_J_p1.zip).
+
+
+# Grading
+For better or worse, there is not a suite of tests for you to use to check what grade you will recieve. I will
+be manually grading each project, and there will be a total of 100 points. 50 points will be assigned to the first
+two components (diagrams and description) and the implementation component will be worth 50 points
+
+The first two parts of the project are going to be graded based upon how well they model the problem, and how
+well your description of your diagram demonstrates an understanding of the problem. There isn't going to be one
+correct answer for this part so as long as you hand in something that makes sense and addresses most facets of the problem,
+you will likely get full credit. After everyone hands their projects in we can go over some of them to see the different
+approaches people took.
+
+As far as grading the project implementation goes, I'm going to assign 10 points to each command listed below, except for
+the exit command. This makes for 40 points for the first four commands. The last 10 points will come from properly 
+reading a list of commands from a file and executing them.
+
+Let me know if you have any questions about grading. Feel free to send me some code or program output before you
+submit the project and I will let you know if it is good enough / what problems might exist.
+
+# Problem Statement
+You have been contracted by a library to make a simple inventory tracker. The software must keep track of which
+titles are available, how many of each title is available, and the name, author, and ID of each book.
+
+There are two types of books that the library must keep track of: normal books (i.e. books corresponding to a
+hard copy) and ebooks (electronic books). There may be ebooks and normal books with the same name and author,
+but each type of book must be kept track of separately.
+
+When running, the software should read input from the command line and interpret it as commands. There are four 
+commands the software must be able to understand:C
+
+    1. A command to insert a new book into the database. This requires the specification of a book type, title,
+       and author. A unique ID must be assigned automatically, and should be printed to the terminal. 
+       This command will have the following format:
+
+         insert <p|e> "title" "author" <stock>
+       
+       where p will mean a physical book, and e will mean an electronic book. Stock is the number of copies
+       available. If a book of the same type, title, and author already exists in the database, simply add
+       the specified stock to that entry. Otherwise, create a new entry with a new unique ID for this book.
+
+       An example output for the command "insert p "Computers for Dummies" "John Doe" 25" would be:
+
+         Created a new entry for a physical book: Computers for Dummies by John Doe with 25 copy(s), ID = 113
+      
+       If there was already an entry in the database for that book with 10 stock, the output for the same command
+       might be:
+
+         Added 10 stock to physical book: Computers for Dummies by John Doe now with 35 copy(s), ID = 164
+      
+    2. A command to query the database. This requires specifying what to search by (either title or author) and
+       a search term. Every book of each type should be searched to see if it contains the search term. The
+       command should be formatted like this:
+e
+         query <a|t> "term"
+
+       where a will mean searching for authors and t will mean searching for titles. Every book that matches (i.e.
+       the author / title contains the search term) should be printed out something like this:
+
+         MATCH: <stock> copy(s) - <title>, <author>
+
+       So for example, the command 'query t "Computer"' might output the following:
+
+         
+         MATCH: 3 copy(s) - The Computer Age, Michael Dapper; ID = 104
+         MATCH: 2 copy(s) - Computers and You, Alice Cooper; ID = 245
+
+    3. A command to delete an entry from the database, if it exists. This command will take an ID only, so there
+       is no need to specify the title, author, or type since each ID maps to a unique book of a specific type.
+       The book with the specified ID must then be removed from the database if it exists. The more bytes from a region of size 0format of the command 
+       should be the following:
+
+         delete <id>
+2
+       So, the command "delete 231" would output something like the following if there was a book with ID 231:
+
+         SUCCESS: Deleted 20 copy(s) of electronic book Dinosaurs in the Home by Michael Stevens
+
+       Running the command on a database that doesn't contain a book with ID 231:
+
+         ERROR: Failed to find a book with ID 231
+    
+    4. The final command wiht functionality is an update command. This can be used to modify the stock of an existing 
+       book by its ID. The command takes in an ID and a stock modifier, which will be added to the current stock. So to remove 
+       1 from the stock, a command with a stock modifier of -1 would be used. The format of the command should be:
+
+         update <id> <stock_modifier>
+
+      For example, the command "update 231 -1" would output the following assuming was a book with ID 231:
+
+        SUCCESS: Modified stock of electronic book Dinosaurs in the Home by Michael Stevens by -1; now with 19 copy(s).
+
+      Similar to the delete command, if there is no book with the specified ID an error should be reported to
+      the user:
+
+        ERROR: Failed to find a book with ID 231
+    
+      If the specified stock modifier would cause the number of available copies to be < 0, an error should be reported
+      and that modification should not be made:
+
+        ERROR: Cannot modify stock of electronic book Dinosaurs in the Home by Michael Stevens by -21; there are
+        only 20 available copies
+
+    5. The last command is an exit command, and it should simple exit the program.
+
+         exitmore bytes from a region of size 0
+
+       Should yield:
+
+         Goodbye!
+       
+       Followed by the termination of the program.
+
+Your program should also be able to run a list of commands from a file when it is started. The path of the file should
+be specified in the command used to start the program. For example, if your main function is in main.py and you wanted
+to run the list of commands in "startup.txt" you could run:
+
+    python main.py startup.txt
+
+Program arguments are available in "sys.argv". Look here https://docs.python.org/3/library/sys.html#sys.argv
+The value of sys.argv would be ["main.py", "startup.txt"] in the example above.
+
+Each line in one of these files will contain a command, see startup.txt for an example. These commands will initialize
+the database with some books, and all of the commands have the same format as specified above.
+
+# Hints
+- You should define some sort of database class that will contain a mapping (i.e. dict) from id to book
+- You can make use of inheritence for the different types of books
+- You can make use of regex to parse the quoted terms (like book titles, author names, queries).
+- You don't have to match my sample outputs precicely, they just have to convey the same idea.

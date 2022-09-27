@@ -1,0 +1,9 @@
+insert p "Book about Books" "John Doe" 5
+insert p "1984" "George Orwell" 5
+insert p "Brave New World" "Aldous Huxley" 5
+insert e "Brave New World" "Aldous Huxley" 50
+insert p "Philosophy for Dummies" "Tom Morris" 2
+insert p "Python for Dummies" "Stef Maruch and Aahz Maruch" 4
+insert e "Software Engineering: A Practitioner's Approach" "Roger S. Pressman" 10
+query a "Huxley"
+query t "for"
